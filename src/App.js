@@ -1,10 +1,15 @@
 import React from "react";
+
 import "./App.css";
 import { Route } from "react-router-dom";
-import Dashboard from "./components/Dashboard";
 import Navs from "./components/Nav";
 import Img from "./components/Img";
 import { Container, Row, Col } from "react-bootstrap";
+
+import Dashboard from "./components/Homepage";
+import Login from "./components/accounts/Login";
+import Signup from "./components/accounts/Signup";
+import AgentDashboard from "./components/AgentDashboard";
 
 function Header() {
   return (
@@ -12,7 +17,7 @@ function Header() {
       <Container>
         <Row>
           <Col sm={1}>
-            <Img id="logo" />
+            <Img />
           </Col>
           <Col sm={11}>
             <Navs />
@@ -28,8 +33,9 @@ function App() {
     <div>
       <Header />
       <Route path="/" exact component={Dashboard} />
-      {/* <Route path="/DriverPage" component={DriversPage} /> */}
-      {/* <Route path="/TripsPage/:id" component={TripsPage} /> */}
+      <Route path="/login" component={Login} />
+      <Route path="/Signup/" component={Signup} />
+      <Route path="/agent/" component={AgentDashboard} />
       <Footer />
     </div>
   );

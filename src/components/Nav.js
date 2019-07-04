@@ -18,13 +18,13 @@ function Navs() {
           <Link to="/short-rent">Short Rent</Link>
         </li>
         <li className="main-nav__item main-nav__item-cta">
-          <Link to="/short-rent">Agents</Link>
+          <Link to="/agent">Agents</Link>
         </li>
         <li className="main-nav__item main-nav__item-cta">
-          <Link to="/short-rent">Login</Link>
+          <Link to="/login">Login</Link>
         </li>
         <li className="main-nav__item main-nav__item-cta">
-          <Link to="/short-rent">Sign up</Link>
+          <Link to="/signup">Sign up</Link>
         </li>
       </ul>
     </nav>
