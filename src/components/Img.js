@@ -2,9 +2,9 @@ import React from "react";
 const Img = props => {
   return (
     <img
-      id="logo"
+      className="logo"
       src={require("../assets/images/house-logo.jpg")}
-      alt="Izuking"
+      alt="logo"
       {...props}
     />
   );

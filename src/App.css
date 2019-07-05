@@ -92,7 +92,7 @@ body {
   width: 100%;
 }
 
-#logo {
+.logo {
   width: 30px;
   border-radius: 30px;
 }
@@ -129,8 +129,8 @@ body {
 
 .main-nav__item-cta a:hover,
 .main-nav__item-cta a:active {
-  color: #00c851;
-  border-bottom: #7b59ff solid 4px;
+  color: #9d060f;
+  border-bottom: #9d060f solid 4px;
   background: #fff;
 }
 
@@ -210,9 +210,8 @@ ul.smallMenu li {
 
 ul.smallMenu li:hover {
   color: #00c851;
-  border-bottom: #7b59ff solid 4px;
+  border-bottom: #9d060f solid 4px;
   background: #fff;
-  transition: all linear 0.2s;
 }
 .floating-menu {
   height: 30px;

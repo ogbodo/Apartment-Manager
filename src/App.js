@@ -17,6 +17,7 @@ function Header() {
       <Container>
         <Row>
           <Col sm={1}>
+            <div />
             <Img />
           </Col>
           <Col sm={11}>

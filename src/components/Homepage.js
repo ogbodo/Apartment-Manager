@@ -73,7 +73,6 @@ function Layout() {
               <h3>Download Our Mobile Application for FREE!</h3>
               Visit Google Play or App Store now
               <div className="appButtons">
-                {/* <Button>android</Button> */}
                 <img alt="ios logo" src="./assets/images/ios.png" />
                 <img alt="android logo" src="./assets/images/googleplay.webp" />
               </div>
@@ -184,12 +183,9 @@ function Search() {
           <option value="10000000000">10billion</option>{" "}
         </select>{" "}
       </span>
-      <Button
-        type="submit"
-        style={{ backgroundColor: "rgb(207, 51, 207)", cursor: "pointer" }}
-      >
+      <button type="submit" style={{ backgroundColor: "#9d060f" }}>
         <i class="mdi mdi-magnify" />
-      </Button>
+      </button>
     </div>
   );
 }

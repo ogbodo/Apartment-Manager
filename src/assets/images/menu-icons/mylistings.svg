@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 108 96" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>mylistings</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="mylistings" fill="#9d060f">
+            <g id="Document" transform="translate(54.000000, 48.000000) scale(-1, 1) rotate(-180.000000) translate(-54.000000, -48.000000) ">
+                <g id="Spread">
+                    <g id="Layer-1">
+                        <g id="Group">
+                            <g id="Group_1">
+                                <path d="M14.753,2.645 C14.753,2.645 14.679,0.259 17.013,0.259 C19.956,0.259 44.187,0.28 44.187,0.28 L44.229,22.545 C44.229,22.545 43.851,26.224 47.414,26.224 L58.683,26.224 C62.899,26.224 62.647,22.545 62.647,22.545 L62.584,0.353 C62.584,0.353 85.584,0.353 89.18,0.353 C92.175,0.353 92.018,3.36 92.018,3.36 L92.018,44.389 L54.552,77.713 L14.753,44.389 C14.753,44.389 14.753,2.645 14.753,2.645 Z" id="Path"></path>
+                                <path d="M0.12,47.501 C0.12,47.501 3.505,41.267 10.863,47.501 L54.878,84.735 L96.16,47.722 C104.696,41.583 107.881,47.722 107.881,47.722 L54.878,95.742 L0.12,47.501 Z" id="Path"></path>
+                                <polygon id="Path" points="95.15 84.83 84.544 84.83 84.586 71.942 95.15 62.975"></polygon>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
