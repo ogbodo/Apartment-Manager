@@ -1,7 +1,6 @@
 import React from "react";
 import CarouselComponent from "./Caroulsel";
 import { Container, Row } from "reactstrap";
-// import swal from "sweetalert";
 
 function Layout() {
   return (
