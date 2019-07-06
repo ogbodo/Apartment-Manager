@@ -137,11 +137,53 @@ function Signup() {
     });
   }
 
-  function doValidation() {
-    const emailPattern = /^[a-z0-9._]+@[a-z0-9_]{3,12}\.[a-z0-9]{3,12}(\.[a-z0-9]{3,12})?$/;
-    
+  function onSubmit() {
+    if (doValidation()) setUser(userState);
+  }
 
-    setUser(userState);
+  function doValidation() {
+    const namePattern = /\b[a-zA-Z]+\b$/;
+    const emailPattern = /^[a-z0-9._+-]{3,}@[a-z0-9_.-]{3,12}\.[a-z0-9]{3,12}(\.[a-z0-9]{2,12})?$/;
+    const passwordPattern = /^.{6,12}$/;
+    const phone = /^(\+123|0)[0-9]{10}$/;
+    const userType = /^(USER|AGENT|OWNER)$/;
+
+    if (!namePattern.test(userState.fullName)) {
+      swal("Invalid", `Please Enter a Valid Name.`, "error");
+      return false;
+    }
+
+    if (!emailPattern.test(userState.email)) {
+      swal("Invalid", `Please Enter a Valid Email Address.`, "error");
+      return false;
+    }
+    if (!passwordPattern.test(userState.password)) {
+      swal(
+        "Invalid Password Length",
+        `Please Enter a Strong Password between Six to Twelve Characters.`,
+        "error"
+      );
+      return false;
+    }
+
+    if (userState.confirmPassword !== userState.password) {
+      swal(
+        "Password Mismatched",
+        `Please Enter the same Password you Entered before for Confirmation.`,
+        "error"
+      );
+      return false;
+    }
+
+    if (!phone.test(userState.phone)) {
+      swal("Invalid", `Please Enter a Valid Phone Number.`, "error");
+      return false;
+    }
+    if (!userType.test(userState.userType)) {
+      swal("Wrong Identity", `Please tell us who you are`, "warning");
+      return false;
+    }
+    return true;
   }
 
   return (
@@ -201,7 +243,7 @@ function Signup() {
                 value={userState ? userState.phone : ""}
               />
               <div style={{ color: "rgb(51, 49, 49)", padding: "15px" }}>
-                <label>You are a</label>
+                <strong>You are?</strong>
                 <br />
                 <input
                   type="radio"
@@ -236,7 +278,7 @@ function Signup() {
                     color="success"
                     type="submit"
                     className="btn-block z-depth-1"
-                    onClick={doValidation}
+                    onClick={onSubmit}
                   >
                     Signup
                   </MDBBtn>
