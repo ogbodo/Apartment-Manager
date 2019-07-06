@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 import {
@@ -12,7 +12,7 @@ import {
 
 import { Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import UseLocalStorage from "./UseLocalStorage";
+import useLocalStorage from "./UseLocalStorage";
 import swal from "sweetalert";
 
 const FormPage = () => {
@@ -75,36 +75,73 @@ function WriteUp() {
 }
 
 function Signup() {
-  // const [state, setstate] = UseLocalStorage("users");
-  const [user, setUser] = useState({});
+  const [userState, setUserState] = useState({});
+  const [, setUser] = useLocalStorage("");
 
   function onNameChange(e) {
     const name = e.target.value;
-    setUser(oldUserState => {
+    setUserState(oldUserState => {
       const newUserState = { ...oldUserState, fullName: name };
       return newUserState;
     });
   }
 
+  function onEmailChange(e) {
+    const email = e.target.value;
+    setUserState(oldUserState => {
+      const newUserState = { ...oldUserState, email: email };
+      return newUserState;
+    });
+  }
+  function onPasswordChange(e) {
+    const password = e.target.value;
+    setUserState(oldUserState => {
+      const newUserState = { ...oldUserState, password: password };
+      return newUserState;
+    });
+  }
+  function onConfirmPasswordChange(e) {
+    const password = e.target.value;
+    setUserState(oldUserState => {
+      const newUserState = { ...oldUserState, confirmPassword: password };
+      return newUserState;
+    });
+  }
+
+  // function onPasswordChange(e) {
+  //   const password = e.target.value;
+  //   setUserState(oldUserState => {
+  //     const oldPasswordValue = oldUserState.password;
+  //     if (oldPasswordValue) {
+  //       if (oldPasswordValue === password) {
+  //         const newUserState = { ...oldUserState, password: password };
+  //         return newUserState;
+  //       } else {
+  //         swal("Oops", `User Already Exist with ${userState.email}`, "error");
+  //       }
+  //     }
+  //   });
+  // }
+  function onPhoneChange(e) {
+    const phone = e.target.value;
+    setUserState(oldUserState => {
+      const newUserState = { ...oldUserState, phone: phone };
+      return newUserState;
+    });
+  }
+  function onUserTypeChange(e) {
+    const userType = e.target.value;
+    setUserState(oldUserState => {
+      const newUserState = { ...oldUserState, userType: userType };
+      return newUserState;
+    });
+  }
+
   function doValidation() {
-    const allUsers = JSON.parse(localStorage.getItem("users"));
-    let users = [];
+    const emailPattern = /^[a-z0-9._]+@[a-z0-9_]{3,12}\.[a-z0-9]{3,12}(\.[a-z0-9]{3,12})?$/;
+    
 
-    if (allUsers) {
-      const exists = allUsers.find(
-        initialUser => initialUser.fullName === user.fullName
-      );
-
-      if (exists) {
-        swal("User with this email already exist.");
-        return;
-      }
-      users = [...allUsers];
-    }
-
-    users.push(user);
-
-    localStorage.setItem("users", JSON.stringify(users));
+    setUser(userState);
   }
 
   return (
@@ -131,17 +168,38 @@ function Signup() {
                 group
                 type="text"
                 onChange={onNameChange}
-                value={user ? user.FullName : ""}
+                value={userState ? userState.FullName : ""}
               />
-              <MDBInput label="Email Address" group type="text" />
-              <MDBInput placeholder label="Password" group type="password" />
+              <MDBInput
+                label="Email Address"
+                group
+                type="text"
+                onChange={onEmailChange}
+                value={userState ? userState.email : ""}
+              />
+              <MDBInput
+                placeholder
+                label="Password"
+                group
+                type="password"
+                onChange={onPasswordChange}
+                value={userState ? userState.password : ""}
+              />
               <MDBInput
                 placeholder
                 label="Confirm Password"
                 group
                 type="password"
+                onChange={onConfirmPasswordChange}
+                value={userState ? userState.confirmPassword : ""}
               />
-              <MDBInput label="Phone Number" group type="text" />
+              <MDBInput
+                label="Phone Number"
+                group
+                type="text"
+                onChange={onPhoneChange}
+                value={userState ? userState.phone : ""}
+              />
               <div style={{ color: "rgb(51, 49, 49)", padding: "15px" }}>
                 <label>You are a</label>
                 <br />
@@ -150,12 +208,25 @@ function Signup() {
                   name="userType"
                   value="USER"
                   style={{ margin: "5px" }}
+                  onChange={onUserTypeChange}
                 />
                 {"User "}
 
-                <input type="radio" name="userType" style={{ margin: "5px" }} />
+                <input
+                  type="radio"
+                  name="userType"
+                  value="AGENT"
+                  style={{ margin: "5px" }}
+                  onChange={onUserTypeChange}
+                />
                 {"Agent "}
-                <input type="radio" name="userType" style={{ margin: "5px" }} />
+                <input
+                  type="radio"
+                  name="userType"
+                  value="OWNER"
+                  style={{ margin: "5px" }}
+                  onChange={onUserTypeChange}
+                />
                 {"Owner "}
               </div>
 

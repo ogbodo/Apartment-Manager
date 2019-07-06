@@ -1,16 +1,21 @@
 import { useState, useEffect } from "react";
+import * as DB from "../../db";
+import swal from "sweetalert";
 
-function UseLocalStorage(key) {
-  const initialState = localStorage.getItem(key) || "";
-
-  const [value, setValue] = useState(JSON.stringify(initialState));
+function useLocalStorageUser(initialValue) {
+  const [userState, setUserState] = useState(initialValue);
 
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(value));
-    console.log(JSON.parse(value));
-  }, [key, value]);
+    if (userState) {
+      if (DB.SetUser("users", userState)) {
+        swal("success", "Saved Successfully!", "success");
+      } else {
+        swal("Oops", `User Already Exist with ${userState.email}`, "error");
+      }
+    }
+  }, [userState]);
 
-  return [value, setValue];
+  return [userState, setUserState];
 }
 
-export default UseLocalStorage;
+export default useLocalStorageUser;
