@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
+import { Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import useLocalStorage from "./UseLocalStorage";
+import swal from "sweetalert";
+
 import {
   MDBContainer,
   MDBRow,
@@ -9,11 +14,6 @@ import {
   MDBCard,
   MDBInput
 } from "mdbreact";
-
-import { Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import useLocalStorage from "./UseLocalStorage";
-import swal from "sweetalert";
 
 const FormPage = () => {
   return (
@@ -81,7 +81,7 @@ function Signup() {
   function onNameChange(e) {
     const name = e.target.value;
     setUserState(oldUserState => {
-      const newUserState = { ...oldUserState, fullName: name };
+      const newUserState = { ...oldUserState, fullName: name.trim() };
       return newUserState;
     });
   }
@@ -108,20 +108,6 @@ function Signup() {
     });
   }
 
-  // function onPasswordChange(e) {
-  //   const password = e.target.value;
-  //   setUserState(oldUserState => {
-  //     const oldPasswordValue = oldUserState.password;
-  //     if (oldPasswordValue) {
-  //       if (oldPasswordValue === password) {
-  //         const newUserState = { ...oldUserState, password: password };
-  //         return newUserState;
-  //       } else {
-  //         swal("Oops", `User Already Exist with ${userState.email}`, "error");
-  //       }
-  //     }
-  //   });
-  // }
   function onPhoneChange(e) {
     const phone = e.target.value;
     setUserState(oldUserState => {
