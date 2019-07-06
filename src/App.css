@@ -150,22 +150,6 @@ body {
   color: #61dafb;
 }
 
-.title {
-  /* box-shadow: 1px 8px 8px rgb(207, 51, 207); */
-  text-align: center;
-  margin-bottom: 10px;
-  font-family: "Anton", sans-serif;
-  color: white;
-  font-weight: bold;
-}
-.sub-title {
-  box-shadow: 1px 2px 2px rgb(207, 51, 207);
-  text-align: center;
-  margin-bottom: 10px;
-  color: rgb(207, 51, 207);
-  font-weight: bold;
-}
-
 .banner-home {
   text-align: center;
   background-image: linear-gradient(
@@ -299,9 +283,49 @@ ul.smallslide {
   background-size: cover;
 }
 
-.menu-items ul:hover {
-  color: rgb(207, 51, 207);
-  border-bottom: rgb(207, 51, 207) solid 4px;
+.menu-items li:hover {
+  border-bottom: #9d060f solid 4px;
   background: #fff;
   transition: all linear 0.2s;
+}
+.dashBoardCardStyle > div:hover {
+  border-bottom: #9d060f solid 5px;
+  background: #fff;
+  transition: all linear 0.2s;
+  border-radius: 8px;
+}
+
+.sub-title {
+  text-align: center;
+  font-weight: 14px;
+  color: white;
+  font-family: "Arsenal", sans-serif;
+}
+.title {
+  text-align: center;
+  margin-bottom: 10px;
+  font-family: "Lilita One", cursive;
+  color: white;
+  font-weight: bold;
+}
+.title-dark {
+  text-align: justify;
+  margin-bottom: 10px;
+  font-family: "Lilita One", cursive;
+  color: black;
+  font-weight: bold;
+}
+.briefDescription-dark {
+  font-family: "Anton", sans-serif;
+  color: black;
+  font-size: 20px;
+  text-align: justify;
+}
+.briefDescription h4,
+ol {
+  font-family: "Arsenal", sans-serif;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: justify;
 }

@@ -44,7 +44,10 @@ function App() {
 
 function Footer() {
   return (
-    <footer className="main-header" style={{ textAlign: "center" }}>
+    <footer
+      className="main-header"
+      style={{ textAlign: "center", fontWeight: "bold" }}
+    >
       © 2019 Info.com - All Rights Reserved.
     </footer>
   );

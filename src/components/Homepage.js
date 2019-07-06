@@ -1,7 +1,7 @@
 import React from "react";
 import CarouselComponent from "./Caroulsel";
-import { Container, Row, Col, Button } from "reactstrap";
-import swal from "sweetalert";
+import { Container, Row } from "reactstrap";
+// import swal from "sweetalert";
 
 function Layout() {
   return (
@@ -14,20 +14,14 @@ function Layout() {
           <div className="container">
             <Row>
               <div className="col-12">
-                <h1 className="headline-text title">Find your next home!</h1>
+                <h1 className="headline-text title">Find Your Next Home!</h1>
               </div>
             </Row>{" "}
             <Row>
-              <div className="col-12">
-                <p
-                  style={{
-                    textAlign: "center",
-                    fontWeight: "14px",
-                    color: "white"
-                  }}
-                >
+              <div className="col-12 ">
+                <h4 className="sub-title">
                   Search for apartments for sale or rent in Nigeria
-                </p>
+                </h4>
               </div>
             </Row>
             <Row>
@@ -46,32 +40,48 @@ function Layout() {
         </div>
       </div>
       <Container>
-        <h1 style={{ textAlign: "center" }}>Featured Agents</h1>
+        <h1
+          style={{ textAlign: "center", fontFamily: "'Arsenal', sans-serif" }}
+        >
+          Featured Agents
+        </h1>
 
         <CarouselComponent />
       </Container>
       <Container>
         <Row>
           <div className="flexes">
-            <div style={{ marginLeft: "20px", marginBottom: "10px" }}>
-              <h2>About Us</h2>
-              ApartmentPro.ng formerly ToLet.com.ng is a world-class Nigerian
-              property portal powered by the consolidation of Propertypro.ng and
-              Jumia House Nigeria (formerly Lamudi) which was acquired by
-              Propertypro.ng in October 2017. The name change reflects the
-              company's broader commitment to real estate in Nigeria and its
-              expertise in driving the innovations needed to shape the future of
-              real-estate search solutions in Nigeria. Our website in the
-              Nigerian property market is with over 60,000 property listings
-              which include both public and private property. The listings
-              include homes, houses, lands, shops, office spaces and other
-              commercial properties. Small and large-scale real estate companies
-              in Nigeria who desire to scale up the sales and rentals of their
-              properties can partner with PropertyPro.ng.
+            <div style={{ marginLeft: "20px", marginBottom: "30px" }}>
+              <h1
+                className="title-dark"
+                style={{ marginBottom: "10px", fontWeight: "bold" }}
+              >
+                About Us
+              </h1>
+              <h4
+                className="briefDescription-dark"
+                style={{ marginBottom: "10px" }}
+              >
+                ApartmentPro.ng formerly ToLet.com.ng is a world-class Nigerian
+                property portal powered by the consolidation of Propertypro.ng
+                and Jumia House Nigeria (formerly Lamudi) which was acquired by
+                Propertypro.ng in October 2017. The name change reflects the
+                company's broader commitment to real estate in Nigeria and its
+                expertise in driving the innovations needed to shape the future
+                of real-estate search solutions in Nigeria. Our website in the
+                Nigerian property market is with over 60,000 property listings
+                which include both public and private property. The listings
+                include homes, houses, lands, shops, office spaces and other
+                commercial properties. Small and large-scale real estate
+                companies in Nigeria who desire to scale up the sales and
+                rentals of their properties can partner with PropertyPro.ng.
+              </h4>
             </div>
             <div style={{ marginLeft: "70px" }}>
-              <h3>Download Our Mobile Application for FREE!</h3>
-              Visit Google Play or App Store now
+              <h3 style={{ marginBottom: "10px", fontWeight: "bold" }}>
+                Download Our Mobile Application for FREE!
+              </h3>
+              <strong>Visit Google Play or App Store now</strong>
               <div className="appButtons">
                 <img alt="ios logo" src="./assets/images/ios.png" />
                 <img alt="android logo" src="./assets/images/googleplay.webp" />
@@ -83,9 +93,7 @@ function Layout() {
     </>
   );
 }
-function HouseAgentCard() {
-  return <div />;
-}
+
 function Dashboard() {
   return (
     <div>

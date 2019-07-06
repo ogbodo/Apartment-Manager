@@ -44,7 +44,7 @@ function DashBoard() {
     {
       title: "My Profile",
       description: "View and Edit your Profile Information",
-      icon: <MyMessages />
+      icon: <Avater />
     },
     {
       title: "My Tools and Statistics",
@@ -59,7 +59,7 @@ function DashBoard() {
   ];
   return (
     <div>
-      <Row className="container-fluid ">
+      <Row className="container-fluid " style={{ height: "1000px" }}>
         <MDBCol md="3">
           <Master />
         </MDBCol>
@@ -135,18 +135,11 @@ function Master() {
             Izukerberg
           </p>
         </div>
-        {/* <CardImg
-          width="100%"
-          height="200px"
-          src={process.env.PUBLIC_URL + "/assets/images/avater.png"}
-          alt="Card image cap"
-        /> */}
         <ListGroup
           style={{
             marginBottom: "300px",
             cursor: "pointer"
           }}
-          className="menu-items"
         >
           {titles}
         </ListGroup>
@@ -158,6 +151,7 @@ function Master() {
 function DashboardCard({ icon, title, description }) {
   return (
     <div
+      className="dashBoardCardStyle"
       style={{
         width: "300px",
         height: "300px",
@@ -166,36 +160,43 @@ function DashboardCard({ icon, title, description }) {
         margin: "10px"
       }}
     >
-      <div
-        style={{
-          borderTop: "solid 10px #bcbcbc"
-        }}
-      />
-      <div
-        style={{
-          width: "300px",
-          height: "300px",
-          cursor: "pointer",
-          paddingLeft: "20px",
-          paddingTop: "20px",
-          boxShadow: "1px 2px 5px #9d060f"
-        }}
-      >
+      <div>
         <div
-          width="30px"
-          style={{ textAlign: "center" }}
-          height="150px"
-          alt={title}
+          id="dashBoardCard"
+          style={{
+            borderTop: "solid 10px #bcbcbc"
+          }}
+        />
+        <div
+          style={{
+            width: "300px",
+            height: "300px",
+            cursor: "pointer",
+            paddingLeft: "20px",
+            paddingTop: "20px",
+            boxShadow: "1px 2px 5px #9d060f"
+          }}
         >
-          {icon}
-        </div>
-        <h2
-          style={{ textAlign: "center", color: "#9d060f", fontWeight: "bold" }}
-        >
-          {title}
-        </h2>
+          <div
+            width="30px"
+            style={{ textAlign: "center" }}
+            height="150px"
+            alt={title}
+          >
+            {icon}
+          </div>
+          <h2
+            style={{
+              textAlign: "center",
+              color: "#9d060f",
+              fontWeight: "bold"
+            }}
+          >
+            {title}
+          </h2>
 
-        <small>{description}</small>
+          <strong>{description}</strong>
+        </div>
       </div>
     </div>
   );

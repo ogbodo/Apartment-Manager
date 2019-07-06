@@ -30,15 +30,18 @@ const FormPage = () => {
 
 function WriteUp() {
   return (
-    <div style={{ paddingTop: "100px", paddingLeft: "70px" }}>
+    <div
+      className="briefDescription"
+      style={{ paddingTop: "100px", paddingLeft: "70px" }}
+    >
       <h1 className="title">Login To Your Dashboard </h1>
-      <h5 style={{ color: "white" }}>
+      <h4>
         ApartmentPro.ng is the leading real estate property center platform in
         Nigeria. with a web-based platform for property retails and sales. We
         provide user with the best property search experience both online and
         offline by connecting them with legitimate and verified real estate
         agents.
-      </h5>
+      </h4>
     </div>
   );
 }

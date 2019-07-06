@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
-
 import {
   MDBContainer,
   MDBRow,
   MDBCol,
   MDBBtn,
   MDBCard,
-  MDBInput,
-  MDBFormInline
+  MDBInput
 } from "mdbreact";
 
 import { Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import UseLocalStorage from "./UseLocalStorage";
+import swal from "sweetalert";
 
 const FormPage = () => {
   return (
@@ -32,25 +32,81 @@ const FormPage = () => {
 
 function WriteUp() {
   return (
-    <div style={{ paddingTop: "100px", paddingLeft: "70px" }}>
+    <div
+      className="briefDescription"
+      style={{ paddingTop: "100px", paddingLeft: "70px" }}
+    >
       <h1 className="title">Register To Get Started</h1>
-      <h5 style={{ color: "white" }}>
+      <h4>
         ApartmentPro.ng is the leading real estate property center platform in
-        Nigeria. with a web-based platform for property retails and sales. We
+        Nigeria. with a web-based platform for apartment retails and sales. We
         provide user with the best property search experience both online and
         offline by connecting them with legitimate and verified real estate
-        agents. What I gain by joining PropertyPro.ng Post as many properties as
-        you can Gain access to phone numbers of unlimited number of clients
-        Never forget an inspection with the inspection reminder Gain access to
-        real estate agents all over Nigeria Market directly to clients through
-        multiple online channels Market your properties on real estate gazzettes
-        and publications.
-      </h5>
+        agents.
+      </h4>
+
+      <br />
+      <h2 className="title">What I Gain by Joining PropertyPro.ng</h2>
+
+      <ol>
+        <li>
+          <h4> Post as many properties as you can</h4>
+        </li>
+        <li>
+          <h4> Gain access to phone numbers of unlimited number of clients</h4>
+        </li>
+        <li>
+          <h4> Never forget an inspection with the inspection reminder</h4>
+        </li>
+        <li>
+          <h4>Gain access to real estate agents all over Nigeria</h4>
+        </li>
+        <li>
+          <h4>Market directly to clients through multiple online channels</h4>
+        </li>
+        <li>
+          <h4>
+            Market your properties on real estate gazettes and publications.
+          </h4>
+        </li>
+      </ol>
     </div>
   );
 }
 
 function Signup() {
+  // const [state, setstate] = UseLocalStorage("users");
+  const [user, setUser] = useState({});
+
+  function onNameChange(e) {
+    const name = e.target.value;
+    setUser(oldUserState => {
+      const newUserState = { ...oldUserState, fullName: name };
+      return newUserState;
+    });
+  }
+
+  function doValidation() {
+    const allUsers = JSON.parse(localStorage.getItem("users"));
+    let users = [];
+
+    if (allUsers) {
+      const exists = allUsers.find(
+        initialUser => initialUser.fullName === user.fullName
+      );
+
+      if (exists) {
+        swal("User with this email already exist.");
+        return;
+      }
+      users = [...allUsers];
+    }
+
+    users.push(user);
+
+    localStorage.setItem("users", JSON.stringify(users));
+  }
+
   return (
     <MDBContainer>
       <MDBRow style={{ marginBottom: "200px", marginTop: "50px" }}>
@@ -70,23 +126,22 @@ function Signup() {
                   <strong>SIGN UP</strong>
                 </h3>
               </div>
-              <MDBInput label="Full Name" group type="text" validate />
-              <MDBInput label="Email Address" group type="text" validate />
               <MDBInput
-                placeholder
-                label="Password"
+                label="Full Name"
                 group
-                type="password"
-                validate
+                type="text"
+                onChange={onNameChange}
+                value={user ? user.FullName : ""}
               />
+              <MDBInput label="Email Address" group type="text" />
+              <MDBInput placeholder label="Password" group type="password" />
               <MDBInput
                 placeholder
                 label="Confirm Password"
                 group
                 type="password"
-                validate
               />
-              <MDBInput label="Phone Number" group type="text" validate />
+              <MDBInput label="Phone Number" group type="text" />
               <div style={{ color: "rgb(51, 49, 49)", padding: "15px" }}>
                 <label>You are a</label>
                 <br />
@@ -108,9 +163,9 @@ function Signup() {
                 <div className="text-center mb-3 col-md-12">
                   <MDBBtn
                     color="success"
-                    rounded
-                    type="button"
+                    type="submit"
                     className="btn-block z-depth-1"
+                    onClick={doValidation}
                   >
                     Signup
                   </MDBBtn>
