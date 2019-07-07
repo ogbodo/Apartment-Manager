@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import { MDBCol } from "mdbreact";
 
@@ -18,11 +18,15 @@ import { ReactComponent as IconMyListings } from "../assets/images/menu-icons/my
 import { ReactComponent as IconDashBoard } from "../assets/images/menu-icons/dashboard.svg";
 import { ReactComponent as IconToolsAndStatistics } from "../assets/images/menu-icons/tools_and_statistics.svg";
 import { ReactComponent as Logout } from "../assets/images/menu-icons/logout.svg";
+import { AuthenticatedUser } from "../components/AppContext";
 
 function DashBoard() {
+  const [user] = useContext(AuthenticatedUser);
+  console.log(user);
+
   const dashboardContent = [
     {
-      title: "Post a property",
+      title: "Post a Property",
       description: "Post as many property as you have",
       icon: <PostProperty />
     },
@@ -58,25 +62,32 @@ function DashBoard() {
     }
   ];
   return (
-    <div>
-      <Row className="container-fluid " style={{ height: "1000px" }}>
-        <MDBCol md="3">
-          <Master />
-        </MDBCol>
-        <MDBCol md="9">
-          <div style={{ marginLeft: "30px" }}>
-            {dashboardContent.map((item, index) => (
-              <DashboardCard
-                key={index}
-                title={item.title}
-                description={item.description}
-                icon={item.icon}
-              />
-            ))}
-          </div>
-        </MDBCol>
-      </Row>
-    </div>
+    <AuthenticatedUser.Consumer>
+      {userContext => (
+        <div>
+          {/* <div>
+            <h1>{userContext.user.fullName}</h1>
+          </div> */}
+          <Row className="container-fluid " style={{ height: "1000px" }}>
+            <MDBCol md="3">
+              <Master />
+            </MDBCol>
+            <MDBCol md="9">
+              <div style={{ marginLeft: "30px" }}>
+                {dashboardContent.map((item, index) => (
+                  <DashboardCard
+                    key={index}
+                    title={item.title}
+                    description={item.description}
+                    icon={item.icon}
+                  />
+                ))}
+              </div>
+            </MDBCol>
+          </Row>
+        </div>
+      )}
+    </AuthenticatedUser.Consumer>
   );
 }
 
@@ -86,7 +97,7 @@ function Master() {
       title: "Dashboard",
       icon: <IconDashBoard />
     },
-    { title: "Post a property", icon: <IconPostProperty /> },
+    { title: "Post a Property", icon: <IconPostProperty /> },
     {
       title: "My Listings",
       icon: <IconMyListings />
