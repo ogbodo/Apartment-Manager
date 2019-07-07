@@ -1,7 +1,7 @@
 import React from "react";
 import CarouselComponent from "./Caroulsel";
 import { Container, Row } from "reactstrap";
-
+/**TODO LATER WATCH MAX's VIDEO ON MEDIA QUERY AND USE MEDIA QUERY FOR RESPONSIVENESS */
 function Layout() {
   return (
     <>
