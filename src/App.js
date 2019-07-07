@@ -10,6 +10,7 @@ import Dashboard from "./components/Homepage";
 import Login from "./components/accounts/Login";
 import Signup from "./components/accounts/Signup";
 import AgentDashboard from "./components/AgentDashboard";
+import { AuthenticatedUser } from "./components/AppContext";
 
 function Header() {
   return (
@@ -31,14 +32,16 @@ function Header() {
 
 function App() {
   return (
-    <div>
-      <Header />
-      <Route path="/" exact component={Dashboard} />
-      <Route path="/login" component={Login} />
-      <Route path="/Signup/" component={Signup} />
-      <Route path="/agent/" component={AgentDashboard} />
-      <Footer />
-    </div>
+    <AuthenticatedUser.Provider>
+      <div>
+        <Header />
+        <Route path="/" exact component={Dashboard} />
+        <Route path="/login" component={Login} />
+        <Route path="/Signup/" component={Signup} />
+        <Route path="/agent/" component={AgentDashboard} />
+        <Footer />
+      </div>
+    </AuthenticatedUser.Provider>
   );
 }
 
