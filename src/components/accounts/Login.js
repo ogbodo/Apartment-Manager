@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
+import { Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { useLoginUser } from "./UseLocalStorage";
+import swal from "sweetalert";
 
 import {
   MDBContainer,
@@ -10,8 +14,6 @@ import {
   MDBCard,
   MDBInput
 } from "mdbreact";
-import { Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
 
 const FormPage = () => {
   return (
@@ -47,6 +49,43 @@ function WriteUp() {
 }
 
 function Signup() {
+  const [userState, setUserState] = useState({});
+  const [, loginUser] = useLoginUser("");
+
+  function onEmailChange(e) {
+    const email = e.target.value;
+    setUserState(oldUserState => {
+      const newUserState = { ...oldUserState, email: email };
+      return newUserState;
+    });
+  }
+
+  function onPasswordChange(e) {
+    const password = e.target.value;
+    setUserState(oldUserState => {
+      const newUserState = { ...oldUserState, password: password };
+      return newUserState;
+    });
+  }
+
+  function onSubmit() {
+    if (doValidation()) loginUser(userState);
+  }
+
+  function doValidation() {
+    const emailPattern = /^[a-z0-9._+-]{3,}@[a-z0-9_.-]{3,12}\.[a-z0-9]{3,12}(\.[a-z0-9]{2,12})?$/;
+
+    if (!emailPattern.test(userState.email)) {
+      swal("Invalid", `Please Enter a Valid Email Address.`, "error");
+      return false;
+    }
+    if (!userState.password) {
+      swal("Error", `Please Enter a valid Password.`, "error");
+      return false;
+    }
+    return true;
+  }
+
   return (
     <MDBContainer>
       <MDBRow style={{ marginBottom: "200px", marginTop: "100px" }}>
@@ -66,22 +105,27 @@ function Signup() {
                   <strong>LOG IN</strong>
                 </h3>
               </div>
-              <MDBInput label="Your email" group type="text" validate />
+              <MDBInput
+                label="Your email"
+                type="text"
+                onChange={onEmailChange}
+                value={userState ? userState.email : ""}
+              />
               <MDBInput
                 placeholder
                 label="Your password"
-                group
                 type="password"
-                validate
+                onChange={onPasswordChange}
+                value={userState ? userState.password : ""}
               />
 
               <MDBRow className="d-flex align-items-center mb-4">
                 <div className="text-center mb-3 col-md-12">
                   <MDBBtn
                     color="success"
-                    rounded
                     type="button"
                     className="btn-block z-depth-1"
+                    onClick={onSubmit}
                   >
                     Login
                   </MDBBtn>

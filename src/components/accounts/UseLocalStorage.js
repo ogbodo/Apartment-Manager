@@ -18,16 +18,22 @@ export function useSignupUser(initialValue) {
   return [userState, setUserState];
 }
 
-
-export function useLocalStorageUser(initialValue) {
+export function useLoginUser(initialValue) {
   const [userState, setUserState] = useState(initialValue);
 
   useEffect(() => {
     if (userState) {
-      if (DB.SetUser("users", userState)) {
-        swal("success", "Saved Successfully!", "success");
+      const response = DB.Login("users", userState);
+      if (response) {
+        console.log(response);
+
+        swal("success", "Log Successfully!", "success");
       } else {
-        swal("Oops", `User Already Exist with ${userState.email}`, "error");
+        swal(
+          "Oops!",
+          `Incorrect login credentials. Please try again!`,
+          "error"
+        );
       }
     }
   }, [userState]);
