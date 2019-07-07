@@ -32,7 +32,11 @@ function Header() {
 
 function App() {
   return (
-    <AuthenticatedUser.Provider>
+    <AuthenticatedUser.Provider
+      value={{
+        currentUser: {}
+      }}
+    >
       <div>
         <Header />
         <Route path="/" exact component={Dashboard} />
