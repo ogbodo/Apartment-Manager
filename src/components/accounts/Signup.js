@@ -3,7 +3,7 @@ import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 import { Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import useLocalStorage from "./UseLocalStorage";
+import { useLocalStorageUser } from "./UseLocalStorage";
 import swal from "sweetalert";
 
 import {
@@ -76,7 +76,7 @@ function WriteUp() {
 
 function Signup() {
   const [userState, setUserState] = useState({});
-  const [, setUser] = useLocalStorage("");
+  const [, setUser] = useLocalStorageUser("");
 
   function onNameChange(e) {
     const name = e.target.value;

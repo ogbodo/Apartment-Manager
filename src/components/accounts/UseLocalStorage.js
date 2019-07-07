@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import * as DB from "../../db";
 import swal from "sweetalert";
 
-function useLocalStorageUser(initialValue) {
+export function useLocalStorageUser(initialValue) {
   const [userState, setUserState] = useState(initialValue);
 
   useEffect(() => {
@@ -17,5 +17,3 @@ function useLocalStorageUser(initialValue) {
 
   return [userState, setUserState];
 }
-
-export default useLocalStorageUser;
