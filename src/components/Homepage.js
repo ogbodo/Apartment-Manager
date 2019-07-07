@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import CarouselComponent from "./Caroulsel";
 import { Container, Row } from "reactstrap";
 /**TODO LATER WATCH MAX's VIDEO ON MEDIA QUERY AND USE MEDIA QUERY FOR RESPONSIVENESS */
@@ -110,6 +110,9 @@ function Dashboard() {
 }
 
 function Search() {
+  const [typeState, setTypeState] = useState("");
+  const [bedroomState, setBedroomState] = useState("");
+  const [maxPriceState, setTMaxPriceState] = useState("");
   return (
     <div className="inputContainer">
       <input
@@ -118,12 +121,19 @@ function Search() {
         className="floating-menu"
         aria-label="Search"
         placeholder="Where do you want to live?"
-        autocomplete="off"
+        autoComplete="off"
       />
       <input id="auto" name="auto" type="hidden" />
       <span>
         {" "}
-        <select name="type" className="floating-menu">
+        <select
+          name="type"
+          className="floating-menu"
+          value={typeState}
+          onChange={e => {
+            setTypeState(e.target.value);
+          }}
+        >
           {" "}
           <option value="">Type</option>{" "}
           <option value="commercial-property/shop">Shop</option>{" "}
@@ -153,9 +163,16 @@ function Search() {
           <option value="house/terraced-duplex">Terraced Duplex</option>{" "}
         </select>{" "}
       </span>
-      <span class="select-cont">
+      <span className="select-cont">
         {" "}
-        <select name="bedroom" className="floating-menu">
+        <select
+          name="bedroom"
+          className="floating-menu"
+          value={bedroomState}
+          onChange={e => {
+            setBedroomState(e.target.value);
+          }}
+        >
           {" "}
           <option value="">Bed</option> <option value="1">1 bedroom</option>{" "}
           <option value="2">2 bedroom</option>{" "}
@@ -171,7 +188,14 @@ function Search() {
       </span>
       <span>
         {" "}
-        <select name="max_price" className="floating-menu">
+        <select
+          name="max_price"
+          className="floating-menu"
+          value={maxPriceState}
+          onChange={e => {
+            setTMaxPriceState(e.target.value);
+          }}
+        >
           {" "}
           <option value="">Max price</option>{" "}
           <option value="500000">500,000</option>{" "}
@@ -199,7 +223,7 @@ function Search() {
         </select>{" "}
       </span>
       <button type="submit" style={{ backgroundColor: "#9d060f" }}>
-        <i class="mdi mdi-magnify" />
+        <i className="mdi mdi-magnify" />
       </button>
     </div>
   );
