@@ -136,6 +136,7 @@ function Master() {
           </p>
         </div>
         <ListGroup
+          className="dashboardMenu"
           style={{
             marginBottom: "300px",
             cursor: "pointer"

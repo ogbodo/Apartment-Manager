@@ -1,7 +1,6 @@
 import React from "react";
 import CarouselComponent from "./Caroulsel";
 import { Container, Row } from "reactstrap";
-// import swal from "sweetalert";
 
 function Layout() {
   return (
@@ -83,8 +82,16 @@ function Layout() {
               </h3>
               <strong>Visit Google Play or App Store now</strong>
               <div className="appButtons">
-                <img alt="ios logo" src="./assets/images/ios.png" />
-                <img alt="android logo" src="./assets/images/googleplay.webp" />
+                <img
+                  style={{ cursor: "pointer" }}
+                  alt="ios logo"
+                  src="./assets/images/ios.png"
+                />
+                <img
+                  style={{ cursor: "pointer" }}
+                  alt="android logo"
+                  src="./assets/images/googleplay.webp"
+                />
               </div>
             </div>
           </div>

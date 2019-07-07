@@ -329,3 +329,9 @@ ol {
   font-size: 20px;
   text-align: justify;
 }
+.dashboardMenu li:hover {
+  border-bottom: #9d060f solid 5px;
+  background: #fff;
+  transition: all linear 0.2s;
+  border-radius: 8px;
+}

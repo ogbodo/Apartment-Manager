@@ -11,7 +11,7 @@ export function SetUsers(key, users) {
 }
 
 export function SetUser(key, user) {
-  let allUsers = GetUsers(key);
+  const allUsers = GetUsers(key);
   let status = false;
   if (allUsers) {
     const oldUserData = GetUser(user, allUsers);
@@ -37,4 +37,13 @@ export function UpdateUser(key, user) {
     filteredUser => filteredUser.email !== newUserData.email
   );
   otherUsers.push(newUserData);
+}
+
+export function Login(key, user) {
+  const allUsers = GetUsers(key);
+  const foundUser = GetUser(user, allUsers);
+  if (foundUser && foundUser.password === user.password) {
+    return foundUser;
+  }
+  return false;
 }

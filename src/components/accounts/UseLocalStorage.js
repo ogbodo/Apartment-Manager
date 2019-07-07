@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import * as DB from "../../db";
 import swal from "sweetalert";
 
-function useLocalStorageUser(initialValue) {
+export function useSignupUser(initialValue) {
   const [userState, setUserState] = useState(initialValue);
 
   useEffect(() => {
@@ -18,4 +18,25 @@ function useLocalStorageUser(initialValue) {
   return [userState, setUserState];
 }
 
-export default useLocalStorageUser;
+export function useLoginUser(initialValue) {
+  const [userState, setUserState] = useState(initialValue);
+
+  useEffect(() => {
+    if (userState) {
+      const response = DB.Login("users", userState);
+      if (response) {
+        console.log(response);
+
+        swal("success", "Log Successfully!", "success");
+      } else {
+        swal(
+          "Oops!",
+          `Incorrect login credentials. Please try again!`,
+          "error"
+        );
+      }
+    }
+  }, [userState]);
+
+  return [userState, setUserState];
+}
