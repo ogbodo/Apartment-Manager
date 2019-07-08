@@ -335,3 +335,27 @@ ol {
   transition: all linear 0.2s;
   border-radius: 8px;
 }
+
+.group-button {
+  background-color: #4285f4;
+}
+.btn-secondary {
+  background-color: #9d060f !important;
+  color: #fff;
+}
+
+/* Style the buttons */
+.btns {
+  border: none;
+  outline: none;
+  padding: 10px 16px;
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+/* Style the active class (and buttons on mouse-over) */
+.active,
+.btns:hover {
+  background-color: #666;
+  color: white;
+}
