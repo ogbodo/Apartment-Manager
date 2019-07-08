@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, FormGroup, Label, Input, ButtonGroup, Button } from "reactstrap";
 import { TextArea } from "semantic-ui-react";
+import Features from "./Features";
 
 function Address() {
   const [buttonState, setButtonState] = useState({
@@ -152,6 +153,9 @@ function Address() {
           </Label>
           <br />
           <Input placeholder="Enter Youtube link" />
+        </FormGroup>
+        <FormGroup>
+          <Features />
         </FormGroup>
 
         {/* <button
