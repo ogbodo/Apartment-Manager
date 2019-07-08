@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@brainhubeu/react-carousel": "^1.10.17",
+    "@reach/router": "^1.2.1",
     "bootstrap": "^4.3.1",
     "mdbreact": "^4.17.0",
     "pure-react-carousel": "^1.21.1",
