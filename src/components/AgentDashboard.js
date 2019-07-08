@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import { MDBCol } from "mdbreact";
-
+import { Route } from "react-router-dom";
 import { Row } from "react-bootstrap";
 import { Card } from "reactstrap";
 import { ReactComponent as PostProperty } from "../assets/images/upload.svg";
@@ -10,7 +10,6 @@ import { ReactComponent as MyLeads } from "../assets/images/mylead.svg";
 import { ReactComponent as MyMessages } from "../assets/images/mymessages.svg";
 import { ReactComponent as MyListings } from "../assets/images/mylistings.svg";
 import { ReactComponent as ToolsAndStatistics } from "../assets/images/tools_and_statistics.svg";
-
 import { ReactComponent as IconPostProperty } from "../assets/images/menu-icons/upload.svg";
 import { ReactComponent as IconAvater } from "../assets/images/menu-icons/avater.svg";
 import { ReactComponent as IconMyMessages } from "../assets/images/menu-icons/mymessages.svg";
@@ -19,6 +18,7 @@ import { ReactComponent as IconDashBoard } from "../assets/images/menu-icons/das
 import { ReactComponent as IconToolsAndStatistics } from "../assets/images/menu-icons/tools_and_statistics.svg";
 import { ReactComponent as Logout } from "../assets/images/menu-icons/logout.svg";
 import { AuthenticatedUser } from "../components/AppContext";
+// import PostPropertyComponent from "../components/PostPropertyComponent";
 
 function DashBoard() {
   const [user] = useContext(AuthenticatedUser);
@@ -97,7 +97,11 @@ function Master() {
       title: "Dashboard",
       icon: <IconDashBoard />
     },
-    { title: "Post a Property", icon: <IconPostProperty /> },
+    {
+      title: "Post a Property",
+      icon: <IconPostProperty />,
+      url: "/PostProperty"
+    },
     {
       title: "My Listings",
       icon: <IconMyListings />
@@ -127,6 +131,7 @@ function Master() {
 
   const titles = adminMenu.map((menu, index) => (
     <ListGroupItem key={index}>
+      {/* <Route path="/PostPropertyComponent" component={PostPropertyComponent} /> */}
       {menu.icon} {menu.title}
     </ListGroupItem>
   ));
