@@ -141,7 +141,6 @@ function Search() {
             Office Spaces
           </option>{" "}
           <option value="flat-apartment">Flats and Apartments</option>{" "}
-          <option value="land">Lands</option>{" "}
           <option value="house/semi-detached-bungalow">
             Semi Detached Bungalow
           </option>{" "}
