@@ -5,14 +5,60 @@ import Features from "./Features";
 
 function Address() {
   const [buttonState, setButtonState] = useState({
-    active: false,
+    activePurpose: false,
+    activeUseOfApartment: false,
+    activeBedrooms: false,
+    activeBathrooms: false,
+    activeToilets: false,
     whichBnt: ""
   });
 
-  function toggle(event) {
+  function toggleActivePurpose(event) {
     const clickedButton = event.target.name;
+    console.log(clickedButton);
+
     setButtonState(oldState => {
-      const active = !oldState.active;
+      const active = !oldState.activePurpose;
+
+      return { active, whichBnt: clickedButton };
+    });
+  }
+  function toggleActiveUseOfApartment(event) {
+    const clickedButton = event.target.name;
+    console.log(clickedButton);
+
+    setButtonState(oldState => {
+      const active = !oldState.activeUseOfApartment;
+
+      return { active, whichBnt: clickedButton };
+    });
+  }
+  function toggleActiveBedrooms(event) {
+    const clickedButton = event.target.name;
+    console.log(clickedButton);
+
+    setButtonState(oldState => {
+      const active = !oldState.activeBedrooms;
+
+      return { active, whichBnt: clickedButton };
+    });
+  }
+  function toggleActiveBathrooms(event) {
+    const clickedButton = event.target.name;
+    console.log(clickedButton);
+
+    setButtonState(oldState => {
+      const active = !oldState.activeBathrooms;
+
+      return { active, whichBnt: clickedButton };
+    });
+  }
+  function toggleActiveToilets(event) {
+    const clickedButton = event.target.name;
+    console.log(clickedButton);
+
+    setButtonState(oldState => {
+      const active = !oldState.activeToilets;
 
       return { active, whichBnt: clickedButton };
     });
@@ -25,7 +71,7 @@ function Address() {
     return "";
   }
 
-  function ComposeButtons({ properties, prefix }) {
+  function ComposeButtons({ properties, prefix, toggle }) {
     function generateButtons() {
       if (!properties.length) {
         for (let index = 0; index < 10; index++) {
@@ -77,6 +123,7 @@ function Address() {
           <ButtonGroup aria-label="Basic example" className="group-button">
             <ComposeButtons
               properties={["For Rent", "For Sale", "Short Let"]}
+              toggle={toggleActivePurpose}
             />
           </ButtonGroup>
         </FormGroup>
@@ -87,7 +134,10 @@ function Address() {
           </Label>
           <br />
           <ButtonGroup aria-label="Basic example" className="group-button">
-            <ComposeButtons properties={["Residential", "Commercial"]} />
+            <ComposeButtons
+              properties={["Residential", "Commercial"]}
+              toggle={toggleActiveUseOfApartment}
+            />
           </ButtonGroup>
         </FormGroup>
 
@@ -115,7 +165,11 @@ function Address() {
           </Label>
           <br />
           <ButtonGroup aria-label="Basic example" className="group-button">
-            <ComposeButtons properties={[]} prefix="bedroom" />
+            <ComposeButtons
+              properties={[]}
+              prefix="bedroom"
+              toggle={toggleActiveBedrooms}
+            />
           </ButtonGroup>
         </FormGroup>
         <FormGroup>
@@ -124,7 +178,11 @@ function Address() {
           </Label>
           <br />
           <ButtonGroup aria-label="Basic example" className="group-button">
-            <ComposeButtons properties={[]} prefix="bathroom" />
+            <ComposeButtons
+              properties={[]}
+              prefix="bathroom"
+              toggle={toggleActiveBathrooms}
+            />
           </ButtonGroup>
         </FormGroup>
         <FormGroup>
@@ -133,7 +191,11 @@ function Address() {
           </Label>
           <br />
           <ButtonGroup aria-label="Basic example" className="group-button">
-            <ComposeButtons properties={[]} prefix="toilet" />
+            <ComposeButtons
+              properties={[]}
+              prefix="toilet"
+              toggle={toggleActiveToilets}
+            />
           </ButtonGroup>
         </FormGroup>
 

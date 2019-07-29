@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import * as DB from "../../db";
 import swal from "sweetalert";
+import AgentDashboard from "../AgentDashboard";
 
 export function useSignupUser(initialValue) {
   const [userState, setUserState] = useState(initialValue);
@@ -24,17 +25,7 @@ export function useLoginUser(initialValue) {
   useEffect(() => {
     if (userState) {
       const response = DB.Login("users", userState);
-      if (response) {
-        console.log(response);
-
-        swal("success", "Log Successfully!", "success");
-      } else {
-        swal(
-          "Oops!",
-          `Incorrect login credentials. Please try again!`,
-          "error"
-        );
-      }
+      setUserState(response);
     }
   }, [userState]);
 

@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import { MDBCol } from "mdbreact";
-import { Route } from "react-router-dom";
+import { Route, Link, Redirect } from "react-router-dom";
 import { Row } from "react-bootstrap";
 import { Card } from "reactstrap";
 import { ReactComponent as PostProperty } from "../assets/images/upload.svg";
@@ -18,7 +18,7 @@ import { ReactComponent as IconDashBoard } from "../assets/images/menu-icons/das
 import { ReactComponent as IconToolsAndStatistics } from "../assets/images/menu-icons/tools_and_statistics.svg";
 import { ReactComponent as Logout } from "../assets/images/menu-icons/logout.svg";
 import { AuthenticatedUser } from "../components/AppContext";
-// import PostPropertyComponent from "../components/PostPropertyComponent";
+import Address from "../components/Apartment/Address";
 
 function DashBoard() {
   const [user] = useContext(AuthenticatedUser);
@@ -62,36 +62,56 @@ function DashBoard() {
     }
   ];
   return (
-    <AuthenticatedUser.Consumer>
-      {userContext => (
-        <div>
-          {/* <div>
-            <h1>{userContext.user.fullName}</h1>
-          </div> */}
-          <Row className="container-fluid " style={{ height: "1000px" }}>
-            <MDBCol md="3">
-              <Master />
-            </MDBCol>
-            <MDBCol md="9">
-              <div style={{ marginLeft: "30px" }}>
-                {dashboardContent.map((item, index) => (
-                  <DashboardCard
-                    key={index}
-                    title={item.title}
-                    description={item.description}
-                    icon={item.icon}
-                  />
-                ))}
-              </div>
-            </MDBCol>
-          </Row>
+    <Row className="container-fluid " style={{ height: "1020px" }}>
+      <MDBCol md="3">
+        <Master user={user} />
+      </MDBCol>
+      <MDBCol md="9">
+        <div style={{ marginLeft: "30px" }}>
+          {dashboardContent.map((item, index) => (
+            <DashboardCard
+              key={index}
+              title={item.title}
+              description={item.description}
+              icon={item.icon}
+            />
+          ))}
         </div>
-      )}
-    </AuthenticatedUser.Consumer>
+      </MDBCol>
+    </Row>
+
+    //    <AuthenticatedUser.Consumer>
+    //    {userContext => (
+    //      <div>
+
+    //        <Row className="container-fluid " style={{ height: "1000px" }}>
+    //          <MDBCol md="3">
+    //            <Master />
+    //          </MDBCol>
+    //          <MDBCol md="9">
+    //            <div style={{ marginLeft: "30px" }}>
+    //              {dashboardContent.map((item, index) => (
+    //                <DashboardCard
+    //                  key={index}
+    //                  title={item.title}
+    //                  description={item.description}
+    //                  icon={item.icon}
+    //                />
+    //              ))}
+    //            </div>
+    //          </MDBCol>
+    //        </Row>
+    //      </div>
+    //    )}
+    //  </AuthenticatedUser.Consumer>
   );
 }
 
-function Master() {
+function Master({ user, navigation }) {
+  const [buttonState, setButtonState] = useState({
+    active: false,
+    whichBnt: ""
+  });
   const adminMenu = [
     {
       title: "Dashboard",
@@ -104,37 +124,65 @@ function Master() {
     },
     {
       title: "My Listings",
-      icon: <IconMyListings />
+      icon: <IconMyListings />,
+      url: "/PostProperty"
     },
     {
       title: "Clients Requests",
-      icon: <IconMyListings />
+      icon: <IconMyListings />,
+      url: "/PostProperty"
     },
 
     {
       title: "My Tools and Statistics",
-      icon: <IconToolsAndStatistics />
+      icon: <IconToolsAndStatistics />,
+      url: "/PostProperty"
     },
     {
       title: "My Messages",
-      icon: <IconMyMessages />
+      icon: <IconMyMessages />,
+      url: "/PostProperty"
     },
     {
       title: "My Profile",
-      icon: <IconAvater />
+      icon: <IconAvater />,
+      url: "/PostProperty"
     },
     {
       title: "Logout",
-      icon: <Logout />
+      icon: <Logout />,
+      url: "/PostProperty"
     }
   ];
 
-  const titles = adminMenu.map((menu, index) => (
-    <ListGroupItem key={index}>
-      {/* <Route path="/PostPropertyComponent" component={PostPropertyComponent} /> */}
-      {menu.icon} {menu.title}
-    </ListGroupItem>
-  ));
+  function toggle(clickedButton) {
+    setButtonState(oldState => {
+      const active = !oldState.active;
+      return { active, whichBnt: clickedButton };
+    });
+  }
+
+  function getClassName(clickedButton) {
+    if (buttonState.active && buttonState.whichBnt === clickedButton) {
+      return " active";
+    }
+    return "";
+  }
+
+  const titles = adminMenu.map((menu, index) => {
+    const menuName = menu.title.replace(" ", "");
+
+    return (
+      <ListGroupItem
+        key={index}
+        name={`master-${menuName}`}
+        onClick={() => toggle(`master-${menuName}`)}
+        className={getClassName(`master-${menuName}`)}
+      >
+        {menu.icon} {menu.title}
+      </ListGroupItem>
+    );
+  });
 
   return (
     <div>
@@ -148,7 +196,7 @@ function Master() {
               fontWeight: "bolder"
             }}
           >
-            Izukerberg
+            {user.fullName}
           </p>
         </div>
         <ListGroup
@@ -177,7 +225,13 @@ function DashboardCard({ icon, title, description }) {
         margin: "10px"
       }}
     >
-      <div>
+      <div
+        onClick={() => {
+          // return <Route path="/Address" component={Address} />;
+          // return <Link to="/short-rent">Short Rent</Link>;
+          return <Redirect to="/Address" />;
+        }}
+      >
         <div
           id="dashBoardCard"
           style={{

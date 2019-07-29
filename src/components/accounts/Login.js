@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 import { Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useLoginUser } from "./UseLocalStorage";
+import { useLoginUser } from "./UseLoginUser";
 import swal from "sweetalert";
+import { AuthenticatedUser } from "../AppContext";
+import AgentDashboard from "../AgentDashboard";
 
 import {
   MDBContainer,
@@ -20,7 +22,7 @@ const FormPage = () => {
     <div>
       <Row className="container-fluid banner-login">
         <MDBCol md="6">
-          <Signup />
+          <Login />
         </MDBCol>
         <MDBCol md="6">
           <WriteUp />
@@ -48,9 +50,10 @@ function WriteUp() {
   );
 }
 
-function Signup() {
+function Login() {
   const [userState, setUserState] = useState({});
-  const [, loginUser] = useLoginUser("");
+  const [logedInUser, loginUser] = useLoginUser("");
+  const [user, setUser] = useContext(AuthenticatedUser);
 
   function onEmailChange(e) {
     const email = e.target.value;
@@ -69,7 +72,22 @@ function Signup() {
   }
 
   function onSubmit() {
-    if (doValidation()) loginUser(userState);
+    if (doValidation()) {
+      loginUser(userState);
+
+      if (logedInUser) {
+        console.log("RESPONSE", logedInUser);
+        setUser(logedInUser);
+
+        swal("success", "Log Successfully!", "success");
+      } else {
+        swal(
+          "Oops!",
+          `Incorrect login credentials. Please try again!`,
+          "error"
+        );
+      }
+    }
   }
 
   function doValidation() {
