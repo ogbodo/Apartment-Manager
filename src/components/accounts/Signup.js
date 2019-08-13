@@ -3,8 +3,8 @@ import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 import { Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useSignupUser } from "./UseLoginUser";
 import swal from "sweetalert";
+import fire from "./config/fire";
 
 import {
   MDBContainer,
@@ -76,7 +76,7 @@ function WriteUp() {
 
 function Signup() {
   const [userState, setUserState] = useState({});
-  const [, setUser] = useSignupUser("");
+  const [buttonState, setButtonState] = useState(false);
 
   function onNameChange(e) {
     const name = e.target.value;
@@ -123,8 +123,21 @@ function Signup() {
     });
   }
 
-  function onSubmit() {
-    if (doValidation()) setUser(userState);
+  async function onSubmit() {
+    if (doValidation()) {
+      setButtonState(true);
+
+      const { email, password } = userState;
+      try {
+        await fire.auth().createUserWithEmailAndPassword(email, password);
+        swal("success", "", "success");
+        /**TODO Redirect user to the dashboard area */
+      } catch (error) {
+        setButtonState(false);
+
+        swal("Oops", ` ${error}`, "error");
+      }
+    }
   }
 
   function doValidation() {
@@ -147,7 +160,7 @@ function Signup() {
       swal(
         "Invalid Password Length",
         `Please Enter a Strong Password between Six to Twelve Characters.`,
-        "error"
+        "warn"
       );
       return false;
     }
@@ -238,7 +251,7 @@ function Signup() {
                   style={{ margin: "5px" }}
                   onChange={onUserTypeChange}
                 />
-                {"User "}
+                {"Occupant "}
 
                 <input
                   type="radio"
@@ -263,6 +276,7 @@ function Signup() {
                   <MDBBtn
                     color="success"
                     type="submit"
+                    disabled={buttonState}
                     className="btn-block z-depth-1"
                     onClick={onSubmit}
                   >

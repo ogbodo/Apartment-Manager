@@ -1,9 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import { MDBCol } from "mdbreact";
-import { Route, Link, Redirect } from "react-router-dom";
+import { Redirect, Route, Link, NavLink } from "react-router-dom";
 import { Row } from "react-bootstrap";
 import { Card } from "reactstrap";
+
+import Price from "./Apartment/Price";
+
+/**Dashboard Icons */
 import { ReactComponent as PostProperty } from "../assets/images/upload.svg";
 import { ReactComponent as Avater } from "../assets/images/avater.svg";
 import { ReactComponent as MyLeads } from "../assets/images/mylead.svg";
@@ -17,18 +21,29 @@ import { ReactComponent as IconMyListings } from "../assets/images/menu-icons/my
 import { ReactComponent as IconDashBoard } from "../assets/images/menu-icons/dashboard.svg";
 import { ReactComponent as IconToolsAndStatistics } from "../assets/images/menu-icons/tools_and_statistics.svg";
 import { ReactComponent as Logout } from "../assets/images/menu-icons/logout.svg";
+
+/**Components */
 import { AuthenticatedUser } from "../components/AppContext";
 import Address from "../components/Apartment/Address";
 
-function DashBoard() {
-  const [user] = useContext(AuthenticatedUser);
-  console.log(user);
+function DashBoard(props) {
+  // const [user] = useContext(AuthenticatedUser);
+  // console.log(user);
+  const user = {
+    fullName: "Izuchukwu Matthias",
+    sex: "Female",
+    phone: "08136503501",
+    email: "izuchukwu@gmail.com",
+    Address: "opposite police check point Nyanya",
+    apartmentsInfo: "apartmentID"
+  };
 
   const dashboardContent = [
     {
       title: "Post a Property",
       description: "Post as many property as you have",
-      icon: <PostProperty />
+      icon: <PostProperty />,
+      path: "/agent/post-property"
     },
     {
       title: "My Leads",
@@ -61,6 +76,18 @@ function DashBoard() {
       icon: <MyMessages />
     }
   ];
+
+  const Agent = () =>
+    dashboardContent.map((item, index) => (
+      <DashboardCard
+        key={index}
+        path={item.path || "/"}
+        title={item.title}
+        description={item.description}
+        icon={item.icon}
+      />
+    ));
+  const { path } = props.match;
   return (
     <Row className="container-fluid " style={{ height: "1020px" }}>
       <MDBCol md="3">
@@ -68,42 +95,11 @@ function DashBoard() {
       </MDBCol>
       <MDBCol md="9">
         <div style={{ marginLeft: "30px" }}>
-          {dashboardContent.map((item, index) => (
-            <DashboardCard
-              key={index}
-              title={item.title}
-              description={item.description}
-              icon={item.icon}
-            />
-          ))}
+          <Route exact path={`${path}/`} component={Agent} />
+          <Route exact path={`${path}/post-property`} component={Price} />
         </div>
       </MDBCol>
     </Row>
-
-    //    <AuthenticatedUser.Consumer>
-    //    {userContext => (
-    //      <div>
-
-    //        <Row className="container-fluid " style={{ height: "1000px" }}>
-    //          <MDBCol md="3">
-    //            <Master />
-    //          </MDBCol>
-    //          <MDBCol md="9">
-    //            <div style={{ marginLeft: "30px" }}>
-    //              {dashboardContent.map((item, index) => (
-    //                <DashboardCard
-    //                  key={index}
-    //                  title={item.title}
-    //                  description={item.description}
-    //                  icon={item.icon}
-    //                />
-    //              ))}
-    //            </div>
-    //          </MDBCol>
-    //        </Row>
-    //      </div>
-    //    )}
-    //  </AuthenticatedUser.Consumer>
   );
 }
 
@@ -115,74 +111,78 @@ function Master({ user, navigation }) {
   const adminMenu = [
     {
       title: "Dashboard",
-      icon: <IconDashBoard />
+      icon: <IconDashBoard />,
+      path: "/agent"
     },
     {
       title: "Post a Property",
       icon: <IconPostProperty />,
-      url: "/PostProperty"
+      path: "/agent/post-property"
     },
     {
       title: "My Listings",
       icon: <IconMyListings />,
-      url: "/PostProperty"
+      path: "/agent/my-listing"
     },
     {
       title: "Clients Requests",
       icon: <IconMyListings />,
-      url: "/PostProperty"
+      path: "/agent/interested-occupants"
     },
 
     {
       title: "My Tools and Statistics",
       icon: <IconToolsAndStatistics />,
-      url: "/PostProperty"
+      path: "/agent/stat"
     },
     {
       title: "My Messages",
       icon: <IconMyMessages />,
-      url: "/PostProperty"
+      path: "/agent/message"
     },
     {
       title: "My Profile",
       icon: <IconAvater />,
-      url: "/PostProperty"
+      path: "/agent/profile"
     },
     {
       title: "Logout",
       icon: <Logout />,
-      url: "/PostProperty"
+      path: "/agent/logout"
     }
   ];
 
-  function toggle(clickedButton) {
-    setButtonState(oldState => {
-      const active = !oldState.active;
-      return { active, whichBnt: clickedButton };
-    });
-  }
-
-  function getClassName(clickedButton) {
-    if (buttonState.active && buttonState.whichBnt === clickedButton) {
-      return " active";
-    }
-    return "";
-  }
-
   const titles = adminMenu.map((menu, index) => {
-    const menuName = menu.title.replace(" ", "");
-
     return (
-      <ListGroupItem
+      <NavLink
+        to={menu.path || "/"}
+        activeClassName=" active"
+        exact
         key={index}
-        name={`master-${menuName}`}
-        onClick={() => toggle(`master-${menuName}`)}
-        className={getClassName(`master-${menuName}`)}
       >
-        {menu.icon} {menu.title}
-      </ListGroupItem>
+        <ListGroupItem>
+          {menu.icon} {menu.title}
+        </ListGroupItem>
+      </NavLink>
     );
   });
+
+  // const titles = adminMenu.map((menu, index) => {
+  //   const menuName = menu.title.replace(" ", "");
+
+  //   return (
+  //     <Link to={menu.path || "/"}>
+  //       <ListGroupItem
+  //         key={index}
+  //         name={`master-${menuName}`}
+  //         onClick={() => toggle(`master-${menuName}`)}
+  //         className={getClassName(`master-${menuName}`)}
+  //       >
+  //         {menu.icon} {menu.title}
+  //       </ListGroupItem>
+  //     </Link>
+  //   );
+  // });
 
   return (
     <div>
@@ -192,7 +192,7 @@ function Master({ user, navigation }) {
           <p
             style={{
               marginTop: "10px",
-              color: "#9d060f",
+              color: "rgb(157, 6, 15)",
               fontWeight: "bolder"
             }}
           >
@@ -213,25 +213,21 @@ function Master({ user, navigation }) {
   );
 }
 
-function DashboardCard({ icon, title, description }) {
+function DashboardCard({ icon, title, description, path }) {
   return (
-    <div
+    <Link
+      to={path}
       className="dashBoardCardStyle"
       style={{
         width: "300px",
         height: "300px",
         cursor: "pointer",
         float: "left",
-        margin: "10px"
+        margin: "10px",
+        color: "#000"
       }}
     >
-      <div
-        onClick={() => {
-          // return <Route path="/Address" component={Address} />;
-          // return <Link to="/short-rent">Short Rent</Link>;
-          return <Redirect to="/Address" />;
-        }}
-      >
+      <div>
         <div
           id="dashBoardCard"
           style={{
@@ -245,7 +241,7 @@ function DashboardCard({ icon, title, description }) {
             cursor: "pointer",
             paddingLeft: "20px",
             paddingTop: "20px",
-            boxShadow: "1px 2px 5px #9d060f"
+            boxShadow: "1px 2px 5px #eee"
           }}
         >
           <div
@@ -265,11 +261,10 @@ function DashboardCard({ icon, title, description }) {
           >
             {title}
           </h2>
-
           <strong>{description}</strong>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 export default DashBoard;

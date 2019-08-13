@@ -3,10 +3,10 @@ import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 import { Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useLoginUser } from "./UseLoginUser";
 import swal from "sweetalert";
 import { AuthenticatedUser } from "../AppContext";
 import AgentDashboard from "../AgentDashboard";
+import fire from "./config/fire";
 
 import {
   MDBContainer,
@@ -52,8 +52,8 @@ function WriteUp() {
 
 function Login() {
   const [userState, setUserState] = useState({});
-  const [logedInUser, loginUser] = useLoginUser("");
-  const [user, setUser] = useContext(AuthenticatedUser);
+  const [buttonState, setButtonState] = useState(false);
+  // const [, setAuthenticatedUser] = useContext(AuthenticatedUser);
 
   function onEmailChange(e) {
     const email = e.target.value;
@@ -71,21 +71,22 @@ function Login() {
     });
   }
 
-  function onSubmit() {
+  async function onSubmit() {
     if (doValidation()) {
-      loginUser(userState);
+      setButtonState(true);
+      const { email, password } = userState;
+      try {
+        const user = await fire
+          .auth()
+          .signInWithEmailAndPassword(email, password);
+        swal("success", "", "success");
+        // setAuthenticatedUser(user);
 
-      if (logedInUser) {
-        console.log("RESPONSE", logedInUser);
-        setUser(logedInUser);
+        /**TODO Redirect user to the dashboard area */
+      } catch (error) {
+        setButtonState(false);
 
-        swal("success", "Log Successfully!", "success");
-      } else {
-        swal(
-          "Oops!",
-          `Incorrect login credentials. Please try again!`,
-          "error"
-        );
+        swal("Oops", ` ${error}`, "error");
       }
     }
   }
@@ -141,6 +142,7 @@ function Login() {
                 <div className="text-center mb-3 col-md-12">
                   <MDBBtn
                     color="success"
+                    disabled={buttonState}
                     type="button"
                     className="btn-block z-depth-1"
                     onClick={onSubmit}

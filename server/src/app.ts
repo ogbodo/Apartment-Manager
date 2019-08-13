@@ -7,6 +7,29 @@ import morgan from 'morgan';
 import mongoose from 'mongoose'; //This helps us to connect to our MongoDB database
 import graphqlHTTP from 'express-graphql';
 import schema from './schema/schema';
+// import { validateUserSession } from './joi_schema/utils';
+
+// Firebase App (the core Firebase SDK) is always required and
+// must be listed before other Firebase SDKs
+// import * as firebase from 'firebase/app';
+
+// Add the Firebase services that you want to use
+// import 'firebase/auth';
+// import 'firebase/firestore';
+
+// TODO: Replace the following with your app's Firebase project configuration
+// const firebaseConfig = {
+//   apiKey: 'AIzaSyB71-SIL8Yw5JPhNM_UYTvLvRsqhmZB2PY',
+//   authDomain: 'apartmentpro-f6a90.firebaseapp.com',
+//   databaseURL: 'https://apartmentpro-f6a90.firebaseio.com',
+//   projectId: 'apartmentpro-f6a90',
+//   storageBucket: '',
+//   messagingSenderId: '662806052056',
+//   appId: '1:662806052056:web:5ae938d9ef184c5d',
+// };
+
+// Initialize Firebase
+// firebase.initializeApp(firebaseConfig);
 
 const app = express();
 
@@ -39,7 +62,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // const uri = process.env.ATLAS_URI!;
-const localUrl = 'mongodb://localhost/Apartment';
+const localUrl = 'mongodb://localhost/ApartmentPro';
 mongoose.connect(localUrl, {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -48,7 +71,7 @@ const connection = mongoose.connection;
 connection.once('open', () => {
   console.log('MongoDB database connection established successfully!');
 });
-
+// app.use(validateUserSession.bind(this, firebase));
 app.use('/graphql', graphqlHTTP({ schema, graphiql: true }));
 
 // catch 404 and forward to error handler

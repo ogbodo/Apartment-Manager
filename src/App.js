@@ -1,22 +1,27 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 
 import "./App.css";
-import { Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Navs from "./components/Nav";
 import Img from "./components/Img";
 import { Container, Row, Col } from "react-bootstrap";
 import { AuthenticatedUser } from "./components/AppContext";
+import fire from "./components/accounts/config/fire";
+import { ApolloProvider } from "@apollo/react-hooks";
+import apolloClient from "./components/apolloSetup";
 
-import Dashboard from "./components/Homepage";
+/**Components */
+import Homepage from "./components/Homepage";
 import Login from "./components/accounts/Login";
 import Signup from "./components/accounts/Signup";
 import AgentDashboard from "./components/AgentDashboard";
+import ForSale from "./components/Apartment/ApartmentsForSale";
+import ForRent from "./components/Apartment/ApartmentsForRent";
 import Address from "./components/Apartment/Address";
 import Price from "./components/Apartment/Price";
 import Description from "./components/Apartment/Description";
 import Features from "./components/Apartment/Features";
 import MyLeads from "./components/MyLeads";
-// import { AuthenticatedUser } from "../AppContext";
 
 function Header() {
   return (
@@ -36,41 +41,39 @@ function Header() {
   );
 }
 
-function ProtectedRoute(props) {
-  const [user, setUser] = useContext(AuthenticatedUser);
+fire.auth().onAuthStateChanged(user => {
+  const [, setUser] = useContext(AuthenticatedUser);
 
-  if (!user.email) {
-    console.log(user);
-    return <Redirect to="/login" />;
-  }
-  console.log(user);
-  return <Route {...props} />;
+  setUser(user);
+});
+
+function ProtectedRoute(props) {
+  // const [user] = useContext(AuthenticatedUser);
+  // console.log(user);
+  // console.log("AuthenticatedUser[0]");
+  // return <>{user ? <Route {...props} /> : <Redirect to="/" />}</>;
 }
 
 function App() {
-  const userHook = useState({
-    fullName: "Izuchukwu Matthias",
-    sex: "Female",
-    phone: "08136503501",
-    email: "izuchukwu@gmail.com",
-    Address: "opposite police check point Nyanya",
-    apartmentsInfo: "apartmentID"
-  });
   return (
-    <AuthenticatedUser.Provider value={userHook}>
-      <div>
-        <Header />
-        <Route path="/" exact component={Dashboard} />
-        <Route path="/login" component={Login} />
-        <Route path="/Signup/" component={Signup} />
-        {/* <Route path="/agent/" component={AgentDashboard} /> */}
-        <Route path="/agent/" component={MyLeads} />
-        {/* <Route path="/agent/" component={Price} /> */}
-        {/* <Route path="/agent/" component={Description} /> */}
-        {/* <ProtectedRoute path="/agent/" component={AgentDashboard} /> */}
-        <Footer />
-      </div>
-    </AuthenticatedUser.Provider>
+    <ApolloProvider client={apolloClient}>
+      <AuthenticatedUser.Provider value={{}}>
+        <div>
+          <Header />
+          <Route path="/" exact component={Homepage} />
+          <Route path="/login" exact component={MyLeads} />
+          <Route path="/signup" exact component={Signup} />
+          <Route path="/agent" component={AgentDashboard} />
+          <Route path="/sale" component={ForSale} />
+          <Route path="/rent" component={ForRent} />
+          {/* <ProtectedRoute path="/agent" exact component={AgentDashboard} /> */}
+          {/* <Route path="/agent/" component={Price} /> */}
+          {/* <Route path="/agent/" component={Description} /> */}
+          {/* <ProtectedRoute path="/agent/" component={AgentDashboard} /> */}
+          <Footer />
+        </div>
+      </AuthenticatedUser.Provider>
+    </ApolloProvider>
   );
 }
 

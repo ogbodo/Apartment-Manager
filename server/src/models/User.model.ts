@@ -9,6 +9,16 @@ interface IUserSchema extends mongoose.Document {
   userType: string;
   phone: string;
   mobile: string;
+  whatsAppNumber?: string;
+  address?: string;
+  isBusinessRegistered?: Boolean;
+  businessName?: string;
+  website?: string;
+  businessPhoneNo?: string;
+  businessAddress?: string;
+  businessRegNo?: string;
+  aboutUsText?: string;
+  businessLogo?: string;
 }
 
 const UserSchema = new Schema(

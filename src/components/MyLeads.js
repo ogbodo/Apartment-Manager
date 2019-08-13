@@ -4,13 +4,31 @@ import { Table } from "react-bootstrap";
 import { AuthenticatedUser } from "../components/AppContext";
 
 function MyLeads() {
-  const [leadState, setLeadState] = useState([]);
-  const [user] = useContext(AuthenticatedUser);
-  console.log(user);
+  const isLead = true;
+  // const [leadState, setLeadState] = useState([]);
+  // const [user] = useContext(AuthenticatedUser);
+  // console.log(user);
+  const user = {
+    fullName: "Izuchukwu Matthias",
+    sex: "Female",
+    phone: "08136503501",
+    email: "izuchukwu@gmail.com",
+    Address: "opposite police check point Nyanya",
+    apartmentsInfo: "apartmentID"
+  };
 
   const allLeads = [
     {
-      name: "Solomon Ogbodo",
+      fullName: "Solomon Ogbodo",
+      sex: "Male",
+      phone: "07032150416, 081345932720",
+      whatsApp: "07032150416",
+      email: "solomon@gmail.com",
+      Address: "opposite police check point Nyanya",
+      apartmentsInfo: "apartmentID"
+    },
+    {
+      fullName: "Solomon Ogbodo",
       sex: "Male",
       phone: "07032150416",
       email: "solomon@gmail.com",
@@ -18,7 +36,7 @@ function MyLeads() {
       apartmentsInfo: "apartmentID"
     },
     {
-      name: "Solomon Ogbodo",
+      fullName: "Solomon Ogbodo",
       sex: "Male",
       phone: "07032150416",
       email: "solomon@gmail.com",
@@ -26,7 +44,7 @@ function MyLeads() {
       apartmentsInfo: "apartmentID"
     },
     {
-      name: "Solomon Ogbodo",
+      fullName: "Solomon Ogbodo",
       sex: "Male",
       phone: "07032150416",
       email: "solomon@gmail.com",
@@ -34,7 +52,7 @@ function MyLeads() {
       apartmentsInfo: "apartmentID"
     },
     {
-      name: "Solomon Ogbodo",
+      fullName: "Solomon Ogbodo",
       sex: "Male",
       phone: "07032150416",
       email: "solomon@gmail.com",
@@ -42,15 +60,7 @@ function MyLeads() {
       apartmentsInfo: "apartmentID"
     },
     {
-      name: "Solomon Ogbodo",
-      sex: "Male",
-      phone: "07032150416",
-      email: "solomon@gmail.com",
-      Address: "opposite police check point Nyanya",
-      apartmentsInfo: "apartmentID"
-    },
-    {
-      name: "Solomon Ogbodo",
+      fullName: "Solomon Ogbodo",
       sex: "Male",
       phone: "07032150416",
       email: "solomon@gmail.com",
@@ -62,23 +72,31 @@ function MyLeads() {
   const rows = allLeads.map(occupant => {
     return (
       <tr key={occupant.email}>
-        <td>{user.fullName}</td>
-        <td>{user.phone}</td>
+        <td>{occupant.fullName}</td>
+        <td>{occupant.phone}</td>
+        <td>{occupant.whatsApp}</td>
         <td>{occupant.email}</td>
         <td>{occupant.sex}</td>
-        <td>{occupant.Address}</td>
-        <td style={{ textAlign: "center" }}>
-          <Link to={`/Login/}`}>
-            <td
-              style={{
-                color: "white",
-                backgroundColor: "#9d060f"
-              }}
-            >
-              Info
+
+        {isLead ? (
+          <>
+            <td>{occupant.Address}</td>
+            <td style={{ textAlign: "center" }}>
+              <Link to={`/Login/}`}>
+                <td
+                  style={{
+                    color: "white",
+                    backgroundColor: "grey"
+                  }}
+                >
+                  Info
+                </td>
+              </Link>
             </td>
-          </Link>
-        </td>
+          </>
+        ) : (
+          ""
+        )}
       </tr>
     );
   });
@@ -86,14 +104,21 @@ function MyLeads() {
   return (
     <div style={{ overflowY: "scroll", height: "45rem" }}>
       <Table striped bordered hover style={{ marginTop: "10px" }}>
-        <thead style={{ backgroundColor: "#d1454f" }}>
+        <thead style={{ backgroundColor: "grey", color: "white" }}>
           <tr>
             <th>Full Name</th>
             <th>Phone</th>
+            <th>WhatsApp</th>
             <th>Email</th>
             <th>Sex</th>
-            <th>Address</th>
-            <th>Apartment Info</th>
+            {isLead ? (
+              <>
+                <th>Address</th>
+                <th>Apartment Info</th>
+              </>
+            ) : (
+              ""
+            )}
           </tr>
         </thead>
         <tbody>{rows}</tbody>

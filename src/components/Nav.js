@@ -1,30 +1,64 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Navs() {
   return (
     <nav className="main-nav">
       <ul className="main-nav__items">
         <li className="main-nav__item main-nav__item-cta">
-          <Link to="/">Home</Link>
+          <NavLink
+            to="/"
+            exact
+            activeStyle={{ borderBottom: "#7b59ff solid 2px" }}
+          >
+            Home
+          </NavLink>
         </li>
         <li className="main-nav__item main-nav__item-cta">
-          <Link to="/rent">For Sale</Link>
+          <NavLink
+            to="/sale"
+            exact
+            activeStyle={{ borderBottom: "#7b59ff solid 2px" }}
+          >
+            For Sale
+          </NavLink>
         </li>
         <li className="main-nav__item main-nav__item-cta">
-          <Link to="/rent">For Rent</Link>
+          <NavLink
+            to="/rent"
+            exact
+            activeStyle={{ borderBottom: "#7b59ff solid 2px" }}
+          >
+            For Rent
+          </NavLink>
+        </li>
+
+        <li className="main-nav__item main-nav__item-cta">
+          <NavLink
+            to="/agent"
+            exact
+            activeStyle={{ borderBottom: "#7b59ff solid 2px" }}
+          >
+            Agents
+          </NavLink>
         </li>
         <li className="main-nav__item main-nav__item-cta">
-          <Link to="/short-rent">Short Rent</Link>
+          <NavLink
+            to="/login"
+            exact
+            activeStyle={{ borderBottom: "#7b59ff solid 2px" }}
+          >
+            Login
+          </NavLink>
         </li>
         <li className="main-nav__item main-nav__item-cta">
-          <Link to="/agent">Agents</Link>
-        </li>
-        <li className="main-nav__item main-nav__item-cta">
-          <Link to="/login">Login</Link>
-        </li>
-        <li className="main-nav__item main-nav__item-cta">
-          <Link to="/signup">Sign up</Link>
+          <NavLink
+            to="/signup"
+            exact
+            activeStyle={{ borderBottom: "#7b59ff solid 2px" }}
+          >
+            Sign up
+          </NavLink>
         </li>
       </ul>
     </nav>

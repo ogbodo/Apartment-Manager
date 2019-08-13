@@ -221,7 +221,7 @@ function Search() {
           <option value="10000000000">10billion</option>{" "}
         </select>{" "}
       </span>
-      <button type="submit" style={{ backgroundColor: "#9d060f" }}>
+      <button type="submit" style={{ backgroundColor: "#7b59ff" }}>
         <i className="mdi mdi-magnify" />
       </button>
     </div>

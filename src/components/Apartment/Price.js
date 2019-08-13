@@ -33,7 +33,7 @@ function Address() {
           />
         </FormGroup>
         <FormGroup>
-          <Label for="currency_select">Duration Required</Label>
+          <Label for="currency_select">Payment Duration</Label>
           <Input
             type="select"
             name="duration"

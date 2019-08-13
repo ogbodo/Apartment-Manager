@@ -2,7 +2,7 @@ import joi from '@hapi/joi';
 
 const namePattern = /\b[a-zA-Z]+\b$/;
 
-export const register = {
+export const addUser = {
   fullName: joi
     .string()
     .trim()
@@ -29,14 +29,15 @@ export const register = {
   mobile: joi.string().trim(),
 };
 
-export const login = {
-  email: joi
+export const Id = {
+  id: joi
     .string()
-    .email()
-    .lowercase()
     .trim()
     .required(),
-  password: joi
+};
+
+export const userType = {
+  userType: joi
     .string()
     .trim()
     .required(),
@@ -46,77 +47,47 @@ export const updateProfile = {
   fullName: joi
     .string()
     .trim()
-    .required()
     .regex(namePattern),
-  phone: joi
-    .string()
-    .trim()
-    .required(),
+  phone: joi.string().trim(),
   email: joi
     .string()
     .lowercase()
     .trim()
-    .email()
-    .required(),
+    .email(),
   password: joi.string().trim(),
-  whatsAppNumber: joi
-    .string()
-    .trim()
-    .required(),
+  whatsAppNumber: joi.string().trim(),
   mobile: joi.string().trim(),
-
   address: joi
     .string()
     .lowercase()
-    .trim()
-    .email()
-    .required(),
-  isBusinessRegistered: joi
-    .string()
-    .lowercase()
-    .trim()
-    .email()
-    .required(),
+    .trim(),
+  isBusinessRegistered: joi.boolean(),
   businessName: joi
     .string()
     .lowercase()
-    .trim()
-    .email()
-    .required(),
+    .trim(),
   website: joi
     .string()
     .lowercase()
-    .trim()
-    .email()
-    .required(),
+    .trim(),
   businessPhoneNo: joi
     .string()
     .lowercase()
-    .trim()
-    .email()
-    .required(),
+    .trim(),
   businessAddress: joi
     .string()
     .lowercase()
-    .trim()
-    .email()
-    .required(),
+    .trim(),
   businessRegNo: joi
     .string()
     .lowercase()
-    .trim()
-    .email()
-    .required(),
+    .trim(),
   aboutUsText: joi
     .string()
     .lowercase()
-    .trim()
-    .email()
-    .required(),
+    .trim(),
   businessLogo: joi
     .string()
     .lowercase()
-    .trim()
-    .email()
-    .required(),
+    .trim(),
 };
