@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 import { Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useLoginUser } from "./UseLocalStorage";
 import swal from "sweetalert";
+import { AuthenticatedUser } from "../AppContext";
+import AgentDashboard from "../AgentDashboard";
+import fire from "./config/fire";
 
 import {
   MDBContainer,
@@ -20,7 +22,7 @@ const FormPage = () => {
     <div>
       <Row className="container-fluid banner-login">
         <MDBCol md="6">
-          <Signup />
+          <Login />
         </MDBCol>
         <MDBCol md="6">
           <WriteUp />
@@ -48,9 +50,10 @@ function WriteUp() {
   );
 }
 
-function Signup() {
+function Login() {
   const [userState, setUserState] = useState({});
-  const [, loginUser] = useLoginUser("");
+  const [buttonState, setButtonState] = useState(false);
+  // const [, setAuthenticatedUser] = useContext(AuthenticatedUser);
 
   function onEmailChange(e) {
     const email = e.target.value;
@@ -68,8 +71,24 @@ function Signup() {
     });
   }
 
-  function onSubmit() {
-    if (doValidation()) loginUser(userState);
+  async function onSubmit() {
+    if (doValidation()) {
+      setButtonState(true);
+      const { email, password } = userState;
+      try {
+        const user = await fire
+          .auth()
+          .signInWithEmailAndPassword(email, password);
+        swal("success", "", "success");
+        // setAuthenticatedUser(user);
+
+        /**TODO Redirect user to the dashboard area */
+      } catch (error) {
+        setButtonState(false);
+
+        swal("Oops", ` ${error}`, "error");
+      }
+    }
   }
 
   function doValidation() {
@@ -123,6 +142,7 @@ function Signup() {
                 <div className="text-center mb-3 col-md-12">
                   <MDBBtn
                     color="success"
+                    disabled={buttonState}
                     type="button"
                     className="btn-block z-depth-1"
                     onClick={onSubmit}

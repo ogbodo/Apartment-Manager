@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import { MDBCol } from "mdbreact";
-
+import { Redirect, Route, Link, NavLink } from "react-router-dom";
 import { Row } from "react-bootstrap";
 import { Card } from "reactstrap";
+
+import Price from "./Apartment/Price";
+
+/**Dashboard Icons */
 import { ReactComponent as PostProperty } from "../assets/images/upload.svg";
 import { ReactComponent as Avater } from "../assets/images/avater.svg";
 import { ReactComponent as MyLeads } from "../assets/images/mylead.svg";
 import { ReactComponent as MyMessages } from "../assets/images/mymessages.svg";
 import { ReactComponent as MyListings } from "../assets/images/mylistings.svg";
 import { ReactComponent as ToolsAndStatistics } from "../assets/images/tools_and_statistics.svg";
-
 import { ReactComponent as IconPostProperty } from "../assets/images/menu-icons/upload.svg";
 import { ReactComponent as IconAvater } from "../assets/images/menu-icons/avater.svg";
 import { ReactComponent as IconMyMessages } from "../assets/images/menu-icons/mymessages.svg";
@@ -19,12 +22,28 @@ import { ReactComponent as IconDashBoard } from "../assets/images/menu-icons/das
 import { ReactComponent as IconToolsAndStatistics } from "../assets/images/menu-icons/tools_and_statistics.svg";
 import { ReactComponent as Logout } from "../assets/images/menu-icons/logout.svg";
 
-function DashBoard() {
+/**Components */
+import { AuthenticatedUser } from "../components/AppContext";
+import Address from "../components/Apartment/Address";
+
+function DashBoard(props) {
+  // const [user] = useContext(AuthenticatedUser);
+  // console.log(user);
+  const user = {
+    fullName: "Izuchukwu Matthias",
+    sex: "Female",
+    phone: "08136503501",
+    email: "izuchukwu@gmail.com",
+    Address: "opposite police check point Nyanya",
+    apartmentsInfo: "apartmentID"
+  };
+
   const dashboardContent = [
     {
-      title: "Post a property",
+      title: "Post a Property",
       description: "Post as many property as you have",
-      icon: <PostProperty />
+      icon: <PostProperty />,
+      path: "/agent/post-property"
     },
     {
       title: "My Leads",
@@ -57,68 +76,113 @@ function DashBoard() {
       icon: <MyMessages />
     }
   ];
+
+  const Agent = () =>
+    dashboardContent.map((item, index) => (
+      <DashboardCard
+        key={index}
+        path={item.path || "/"}
+        title={item.title}
+        description={item.description}
+        icon={item.icon}
+      />
+    ));
+  const { path } = props.match;
   return (
-    <div>
-      <Row className="container-fluid " style={{ height: "1000px" }}>
-        <MDBCol md="3">
-          <Master />
-        </MDBCol>
-        <MDBCol md="9">
-          <div style={{ marginLeft: "30px" }}>
-            {dashboardContent.map((item, index) => (
-              <DashboardCard
-                key={index}
-                title={item.title}
-                description={item.description}
-                icon={item.icon}
-              />
-            ))}
-          </div>
-        </MDBCol>
-      </Row>
-    </div>
+    <Row className="container-fluid " style={{ height: "1020px" }}>
+      <MDBCol md="3">
+        <Master user={user} />
+      </MDBCol>
+      <MDBCol md="9">
+        <div style={{ marginLeft: "30px" }}>
+          <Route exact path={`${path}/`} component={Agent} />
+          <Route exact path={`${path}/post-property`} component={Price} />
+        </div>
+      </MDBCol>
+    </Row>
   );
 }
 
-function Master() {
+function Master({ user, navigation }) {
+  const [buttonState, setButtonState] = useState({
+    active: false,
+    whichBnt: ""
+  });
   const adminMenu = [
     {
       title: "Dashboard",
-      icon: <IconDashBoard />
+      icon: <IconDashBoard />,
+      path: "/agent"
     },
-    { title: "Post a property", icon: <IconPostProperty /> },
+    {
+      title: "Post a Property",
+      icon: <IconPostProperty />,
+      path: "/agent/post-property"
+    },
     {
       title: "My Listings",
-      icon: <IconMyListings />
+      icon: <IconMyListings />,
+      path: "/agent/my-listing"
     },
     {
       title: "Clients Requests",
-      icon: <IconMyListings />
+      icon: <IconMyListings />,
+      path: "/agent/interested-occupants"
     },
 
     {
       title: "My Tools and Statistics",
-      icon: <IconToolsAndStatistics />
+      icon: <IconToolsAndStatistics />,
+      path: "/agent/stat"
     },
     {
       title: "My Messages",
-      icon: <IconMyMessages />
+      icon: <IconMyMessages />,
+      path: "/agent/message"
     },
     {
       title: "My Profile",
-      icon: <IconAvater />
+      icon: <IconAvater />,
+      path: "/agent/profile"
     },
     {
       title: "Logout",
-      icon: <Logout />
+      icon: <Logout />,
+      path: "/agent/logout"
     }
   ];
 
-  const titles = adminMenu.map((menu, index) => (
-    <ListGroupItem key={index}>
-      {menu.icon} {menu.title}
-    </ListGroupItem>
-  ));
+  const titles = adminMenu.map((menu, index) => {
+    return (
+      <NavLink
+        to={menu.path || "/"}
+        activeClassName=" active"
+        exact
+        key={index}
+      >
+        <ListGroupItem>
+          {menu.icon} {menu.title}
+        </ListGroupItem>
+      </NavLink>
+    );
+  });
+
+  // const titles = adminMenu.map((menu, index) => {
+  //   const menuName = menu.title.replace(" ", "");
+
+  //   return (
+  //     <Link to={menu.path || "/"}>
+  //       <ListGroupItem
+  //         key={index}
+  //         name={`master-${menuName}`}
+  //         onClick={() => toggle(`master-${menuName}`)}
+  //         className={getClassName(`master-${menuName}`)}
+  //       >
+  //         {menu.icon} {menu.title}
+  //       </ListGroupItem>
+  //     </Link>
+  //   );
+  // });
 
   return (
     <div>
@@ -128,11 +192,11 @@ function Master() {
           <p
             style={{
               marginTop: "10px",
-              color: "#9d060f",
+              color: "rgb(157, 6, 15)",
               fontWeight: "bolder"
             }}
           >
-            Izukerberg
+            {user.fullName}
           </p>
         </div>
         <ListGroup
@@ -149,16 +213,18 @@ function Master() {
   );
 }
 
-function DashboardCard({ icon, title, description }) {
+function DashboardCard({ icon, title, description, path }) {
   return (
-    <div
+    <Link
+      to={path}
       className="dashBoardCardStyle"
       style={{
         width: "300px",
         height: "300px",
         cursor: "pointer",
         float: "left",
-        margin: "10px"
+        margin: "10px",
+        color: "#000"
       }}
     >
       <div>
@@ -175,7 +241,7 @@ function DashboardCard({ icon, title, description }) {
             cursor: "pointer",
             paddingLeft: "20px",
             paddingTop: "20px",
-            boxShadow: "1px 2px 5px #9d060f"
+            boxShadow: "1px 2px 5px #eee"
           }}
         >
           <div
@@ -195,11 +261,10 @@ function DashboardCard({ icon, title, description }) {
           >
             {title}
           </h2>
-
           <strong>{description}</strong>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 export default DashBoard;

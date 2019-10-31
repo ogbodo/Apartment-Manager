@@ -86,7 +86,6 @@ body {
 }
 
 .main-header {
-  /* color: #6fbc97; */
   color: #ff1b68;
   background-color: #00c851;
   width: 100%;
@@ -106,7 +105,8 @@ body {
   list-style: none;
   margin: 2px;
   padding: 0px 15px 15px;
-  font-size: 18px;
+  font-size: 16px;
+  margin: 10px;
   display: inline-block;
   font-weight: bold;
   font-family: "Anton", sans-serif;
@@ -117,21 +117,19 @@ body {
 
 .main-nav__item a:hover,
 .main-nav__item a:active {
-  color: white;
   border-bottom: #4285f4 solid 4px;
 }
 
 .main-nav__item-cta a {
   text-decoration: none;
   color: white;
-  border-radius: 8px;
+  border-radius: 1px;
 }
 
 .main-nav__item-cta a:hover,
 .main-nav__item-cta a:active {
-  color: #9d060f;
-  border-bottom: #9d060f solid 4px;
-  background: #fff;
+  color: #fff;
+  border-bottom: #7b59ff solid 2px;
 }
 
 .master-details-container {
@@ -148,19 +146,6 @@ body {
 .col-4 li:active,
 .col-4 li:hover {
   color: #61dafb;
-}
-
-.banner-home {
-  text-align: center;
-  background-image: linear-gradient(
-      rgba(0, 0, 255, 0.5),
-      rgba(255, 255, 0, 0.5)
-    ),
-    url("./assets/images/houses.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 550px;
-  padding-top: 100px;
 }
 
 .banner:after {
@@ -194,7 +179,7 @@ ul.smallMenu li {
 
 ul.smallMenu li:hover {
   color: #00c851;
-  border-bottom: #9d060f solid 4px;
+  border-bottom: #7b59ff solid 1px;
   background: #fff;
 }
 .floating-menu {
@@ -213,7 +198,7 @@ ul.smallMenu li:hover {
   flex: 0 0 50%;
   border: none;
   padding: 20px;
-  border-right: 1px solid rgb(207, 51, 207);
+  border-right: 1px solid #0000;
   outline: none;
 }
 .inputContainer span,
@@ -232,7 +217,7 @@ ul.smallMenu li:hover {
   background: none;
   outline: none;
   border-radius: none;
-  border-right: 1px solid rgb(207, 51, 207);
+  border-right: 1px solid #7b59ff;
 }
 @media only screen and (min-width: 160px) and (max-width: 800px) {
   .inputContainer {
@@ -283,16 +268,30 @@ ul.smallslide {
   background-size: cover;
 }
 
+.banner-home {
+  text-align: center;
+  background-image: linear-gradient(
+      rgba(0, 0, 255, 0.5),
+      rgba(255, 255, 0, 0.5)
+    ),
+    url("./assets/images/houses.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 550px;
+  padding-top: 100px;
+}
+
 .menu-items li:hover {
-  border-bottom: #9d060f solid 4px;
+  border-bottom: #7b59ff solid 4px;
   background: #fff;
   transition: all linear 0.2s;
 }
 .dashBoardCardStyle > div:hover {
-  border-bottom: #9d060f solid 5px;
+  /* border-bottom: #fff solid 5px; */
   background: #fff;
   transition: all linear 0.2s;
-  border-radius: 8px;
+  /* border-radius: 8px; */
+  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.14);
 }
 
 .sub-title {
@@ -330,8 +329,30 @@ ol {
   text-align: justify;
 }
 .dashboardMenu li:hover {
-  border-bottom: #9d060f solid 5px;
+  border-bottom: rgb(157, 6, 15) solid 3px;
   background: #fff;
   transition: all linear 0.2s;
-  border-radius: 8px;
+  border-radius: 2px;
+}
+
+.group-button {
+  background-color: #666;
+}
+.btn-secondary {
+  background-color: #d1454f !important;
+  color: #fff;
+}
+
+/* Style the buttons */
+.btn {
+  border: none;
+  outline: none;
+  padding: 10px 16px;
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+/* Style the active class (and buttons on mouse-over) */
+.active {
+  color: green;
 }
